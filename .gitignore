@@ -1,0 +1,10 @@
+*~
+*\#
+*.class
+*.jar
+*.log
+build/**
+dist/**
+meta/**
+doc/**
+samples/XMLTest.xml

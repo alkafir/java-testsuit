@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="testsuit" default="build">
+	<!-- Version -->
+	<property name="version.number.major" value="1" />
+	<property name="version.number.minor" value="0" />
+	<property name="version.number" value="${version.number.major}.${version.number.minor}" />
+	<property name="version.phase" value="alpha" />
+	<property name="version" value="${version.number}-${version.phase}" />
+
+	<!-- Directories and files -->
+	<property name="dir.src" location="src/" />
+	<property name="dir.meta" location="meta/" />
+	<property name="dir.build" location="build/" />
+	<property name="dir.dist" location="dist/" />
+	<property name="dir.doc" location="doc/" />
+	<property name="dir.test" location="samples/" />
+	<property name="dir.tasks" location="ant-tasks/" />
+	<property name="dir.tasks.src" location="${dir.tasks}/src/" />
+	
+	<property name="file.manifest" location="${dir.meta}/MANIFEST.MF" />
+	<property name="file.jar.noext" location="${dir.dist}/${ant.project.name}-${version.number}" />
+	<property name="file.build.test" location="${dir.test}/build.xml" />
+	<property name="file.jdepend" location="${dir.doc}/jdepend.txt" />
+	<property name="file.docs" location="${file.jar.noext}-docs.tar.gz" />
+	
+	<!-- Javadoc values -->
+	<property name="javadoc.windowTitle" value="${ant.project.name} v${version}" />
+	
+	<!-- Java classes -->
+	<property name="class.entryPoint" value="wisedevil.test.EntryPoint" />
+	
+	<!-- Tasks -->
+	<taskdef name="runtests"
+		classname="wisedevil.ant.taskdefs.RunTests"
+		classpath="${dir.build}"
+		onerror="ignore"
+	/>
+	
+	<target name="release" description="Enables release mode">
+		<property name="build.release" value="true" />
+	</target>
+	
+	<target name="-debug-warning" unless="build.release">
+		<echo message="Debug build mode: ENABLED." />
+	</target>
+	
+	<target name="init" description="Initializes the environment" depends="-debug-warning, -init-debug, -init-release">
+		<mkdir dir="${dir.meta}" />
+		<mkdir dir="${dir.build}" />
+		<mkdir dir="${dir.dist}" />
+		<mkdir dir="${dir.doc}" />
+	</target>
+	
+	<target name="-init-debug" unless="build.release">
+		<property name="file.jar" location="${file.jar.noext}-${version.phase}-debug.jar" />
+	</target>
+	
+	<target name="-init-release" if="build.release">
+		<property name="file.jar" location="${file.jar.noext}.jar" />
+	</target>
+	
+	<target name="build-fw" description="Builds the framework java source files" depends="init, -build-fw-debug" if="build.release">
+		<javac includeAntRuntime="false" srcdir="${dir.src}" destdir="${dir.build}">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+	
+	<target name="-build-fw-debug" depends="init" unless="build.release">
+		<javac includeAntRuntime="false" srcdir="${dir.src}" destdir="${dir.build}" debug="true">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+	
+	<target name="build-ant-tasks" description="Builds the ant tasks" depends="init">
+		<javac includeAntRuntime="true" srcdir="${dir.tasks.src}" destdir="${dir.build}">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+	
+	<target name="build" description="Builds the java source files" depends="build-fw, build-ant-tasks" />
+	
+	<target name="manifest" description="Creates the jar manifest" depends="init">
+		<manifest file="${file.manifest}">
+			<attribute name="Main-Class" value="wisedevil.test.EntryPoint" />
+			
+			<attribute name="Implementation-Title" value="${ant.project.name}" />
+			<attribute name="Implementation-Version" value="${version}" />
+			<attribute name="Implementation-Vendor" value="wisedevil" />
+			<attribute name="Implementation-URL" value="https://bitbucket.org/wisedevil/testsuit" />
+			
+			<attribute name="Specification-Title" value="${ant.project.name}" />
+			<attribute name="Specification-Version" value="${version.number}" />
+			<attribute name="Specification-Vendor" value="wisedevil" />
+		</manifest>
+	</target>
+	
+	<target name="jar" description="Creates the jar file" depends="build, manifest, -tar-doc-release">
+		<jar destfile="${file.jar}" index="true" manifest="${file.manifest}">
+			<fileset dir="${dir.build}">
+				<include name="**/*.class" />
+				<exclude name="**/package-info.class" />
+			</fileset>
+		</jar>
+	</target>
+	
+	<target name="clean" description="Cleans the build" depends="distclean, -clean-test">
+		<delete dir="${dir.build}" />
+		<delete dir="${dir.meta}" />
+		<delete dir="${dir.doc}" />
+	</target>
+	
+	<target name="distclean" description="Cleans the distribution files only">
+		<delete dir="${dir.dist}" />
+	</target>
+	
+	<target name="jdepend" depends="build" description="Analyzes class files with JDepend">
+		<jdepend outputfile="${file.jdepend}">
+			<exclude name="java.*" />
+			<exclude name="javax.*" />
+			<exclude name="org.w3c.dom" />
+			<exclude name="org.apache.tools.*" />
+			
+			<classespath>
+				<pathelement location="${dir.build}" />
+			</classespath>
+		</jdepend>
+	</target>
+	
+	<target name="-doc-debug" depends="init" unless="build.release">
+		<javadoc sourcepath="${dir.src}" destdir="${dir.doc}" private="true" windowtitle="${javadoc.windowTitle}" />
+	</target>
+	
+	<target name="-doc-release" depends="init" if="build.release">
+		<javadoc destdir="${dir.doc}" link="http://docs.oracle.com/javase/7/docs/api/" windowtitle="${javadoc.windowTitle}">
+			<fileset dir="${dir.src}" defaultexcludes="yes">
+				<include name="**/*.java" />
+				<exclude name="wisedevil/test/EntryPoint.java" />
+			</fileset>
+		</javadoc>
+	</target>
+	
+	<target name="doc" description="Builds documentation" depends="-doc-debug, -doc-release" />
+	
+	<target name="-tar-doc-release" depends="-doc-release" if="build.release">
+		<tar basedir="${dir.doc}" destfile="${file.docs}" compression="gzip" longfile="warn" />
+	</target>
+	
+	<target name="build-test" depends="build" description="Builds the test files">
+		<javac includeAntRuntime="false" srcdir="${dir.test}" debug="true" classpath="${dir.build}" />
+	</target>
+	
+	<target name="test" depends="build-test, build-ant-tasks" description="Runs the tests">
+		<runtests classpath="${dir.build}">
+			<fileset dir="${dir.test}">
+				<include name="*.class" />
+			</fileset>
+		</runtests>
+	</target>
+	
+	<target name="-clean-test">
+		<delete>
+			<fileset dir="${dir.test}">
+				<include name="*.log" />
+				<include name="*.xml" />
+				<include name="*.class" />
+			</fileset>
+		</delete>
+	</target>
+</project>
