@@ -79,5 +79,5 @@ Please referer to the javadoc output for further information.
 Feel free to report bugs and submit suggestions via the issue tracker at the project's page. Any help is appreciated.
 
 ## Links
-- [Project page @bitbucket.com](https://bitbucket.org/wisedevil/testsuit "Project")
+- [Project page @github.com](https://github.com/wisedevil/testsuit "Project")
 
