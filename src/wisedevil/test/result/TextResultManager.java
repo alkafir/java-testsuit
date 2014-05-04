@@ -70,7 +70,7 @@ public abstract class TextResultManager extends AbstractResultManager {
 		b.append("DATE: " + Calendar.getInstance().getTime().toString() + nl + nl);
 		
 		// Append results
-		for(TestResult r: getResults()) {
+		getResults().stream().forEach((TestResult r) -> {
 			b.append(r.name);
 			
 			if(r.name.length() < nameLen) {
@@ -90,7 +90,7 @@ public abstract class TextResultManager extends AbstractResultManager {
 			
 			if(r.time != TestResult.NOT_TIMED)
 				b.append("\tEXECUTION TIME:\t" + r.time + "ns" + nl);
-		}
+		});
 		
 		textResults = b.toString();
 	}

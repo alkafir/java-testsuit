@@ -16,8 +16,9 @@
  */
 package wisedevil.test;
 
-import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import wisedevil.test.result.TestResult;
 
@@ -90,26 +91,26 @@ public class TestCaseRunner {
 		// Run the useful (not empty) sequences
 		final LinkedList<Thread> tlist = new LinkedList<Thread>();
 		
-		for(TestSequence s: seq)
-		if(!s.isEmpty()) {
-			Thread t = new Thread(s);
-			
-			try {
-				t.start();
-				tlist.push(t);
-			} catch(IllegalThreadStateException e) {
-				e.printStackTrace(); // Should never occur
+		Arrays.stream(seq).forEach((TestSequence s) -> {
+			if(!s.isEmpty()) {
+				Thread t = new Thread(s);
+				
+				try {
+					t.start();
+					tlist.push(t);
+				} catch(IllegalThreadStateException e) {
+					e.printStackTrace(); // Should never occur
+				}
 			}
-		}
+		});
 		
 		// Wait for termination 
-		for(Thread t: tlist)
-			_joinSequence(t);
+		tlist.stream().forEach((Thread t) -> _joinSequence(t));
 		
 		// Collect the results
-		for(TestSequence s: seq)
-			for(TestResult t: s.getResults())
-				results.add(t);
+		Arrays.stream(seq).forEach((TestSequence s) -> {
+			Arrays.stream(s.getResults()).forEach((TestResult t) -> results.add(t));
+		});
 	 }
 	 
 	 /**

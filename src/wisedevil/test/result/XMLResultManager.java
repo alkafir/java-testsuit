@@ -84,7 +84,7 @@ public abstract class XMLResultManager extends AbstractResultManager {
 			xRoot.appendChild(xDate);
 			
 			// Set test results
-			for(TestResult t: res) {
+			res.stream().forEach((TestResult t) -> {
 				final Element xTest = xml.createElement("test");
 				
 				xTest.setAttribute("name", t.name);
@@ -108,7 +108,7 @@ public abstract class XMLResultManager extends AbstractResultManager {
 				}
 				
 				xRoot.appendChild(xTest);
-			}
+			});
 			
 			xml.appendChild(xRoot);
 			xml.normalize();

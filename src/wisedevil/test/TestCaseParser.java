@@ -20,6 +20,7 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import java.lang.reflect.Method;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -104,7 +105,7 @@ public class TestCaseParser {
 		final Method[] all = _cls.getDeclaredMethods();
 		final LinkedHashSet<TestMethod> meths = new LinkedHashSet<TestMethod>();
 		
-		for(Method m: all) {
+		Arrays.stream(all).forEach(m -> {
 			final Test aTest = m.getAnnotation(Test.class);
 			
 			if(aTest != null)
@@ -123,7 +124,7 @@ public class TestCaseParser {
 						
 						meths.add(new TestMethod(instance, m, timed));
 					}
-		}
+		});
 		
 		return meths;
 	}
@@ -137,7 +138,7 @@ public class TestCaseParser {
 		final Name name = _cls.getAnnotation(Name.class); // Identification information
 		final Description desc = _cls.getAnnotation(Description.class); // Description information
 		final TestCaseInfoBuilder builder = new TestCaseInfoBuilder();
-		final ResultManager results = _cls.getAnnotation(ResultManager.class); // The result manager information
+		final ResultManager[] results = _cls.getAnnotationsByType(ResultManager.class); // The result manager information
 		
 		if(time != null)
 			builder.isTimed(time.value());
@@ -156,8 +157,7 @@ public class TestCaseParser {
 		if(results != null) {
 			final LinkedList<Class<? extends AbstractResultManager>> r = new LinkedList<Class<? extends AbstractResultManager>>();
 			
-			for(Class<? extends AbstractResultManager> rm: results.value())
-				r.add(rm);
+			Arrays.stream(results).forEach(rm -> r.add(rm.value()));
 			
 			builder.setResultManagers(r);
 		}
