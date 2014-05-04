@@ -49,7 +49,7 @@ import org.apache.tools.ant.types.FileSet;
  * Supported attributes:
  * - Classpath: Colon separated list of jar files and directories to be added to the classpath
  *
- * @see https://bitbucket.org/wisedevil/testsuit
+ * @see https://github.com/wisedevil/testsuit
  */
 public class RunTests extends org.apache.tools.ant.Task {
 	private Path _cp; // Classpath
@@ -84,10 +84,10 @@ public class RunTests extends org.apache.tools.ant.Task {
 		if(_files.size() == 0)
 			throw new BuildException("At least one FileSet must be specified.");
 		
-		for(File f: _files) { // Run tests
-			
+		//for(File f: _files) { // Run tests
+		_files.stream().forEach(f -> {
 			if(f.getName().contains("$"))
-				continue; // Avoid classes containing '$' since by convention, those are anonymous classes declared somewhere else
+				return; // Avoid classes containing '$' since by convention, those are anonymous classes declared somewhere else
 			
 			Java java = new Java(this);
 			
@@ -99,7 +99,7 @@ public class RunTests extends org.apache.tools.ant.Task {
 			java.setFailonerror(true);
 			
 			java.execute();
-		}
+		});
 	}
 	
 	public void setClasspath(Path cp) { _cp = cp; }
@@ -110,8 +110,7 @@ public class RunTests extends org.apache.tools.ant.Task {
 		
 		scanner.scan();
 		
-		for(String s: scanner.getIncludedFiles())
-			_files.add(new File(basedir.toString(), s));
+		java.util.Arrays.stream(scanner.getIncludedFiles()).forEach(s -> _files.add(new File(basedir.toString(), s)));
 	}
 }
 
