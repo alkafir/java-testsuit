@@ -4,7 +4,8 @@ import static wisedevil.test.Assert.*;
 
 @Name("FileTest")
 @Description("This test saves a text file with testcase results")
-@ResultManager({wisedevil.test.result.TextFileResultManager.class, wisedevil.test.result.ConsoleResultManager.class})
+@ResultManager(wisedevil.test.result.TextFileResultManager.class)
+@ResultManager(wisedevil.test.result.ConsoleResultManager.class)
 public class FileTest {
 
 	@Test public void passTest() {}

@@ -10,7 +10,9 @@ import wisedevil.test.result.XMLFileResultManager;
  */
 @Name("Time test")
 @Description("Time feature testing test case")
-@ResultManager({ConsoleResultManager.class, TextFileResultManager.class, XMLFileResultManager.class})
+@ResultManager(ConsoleResultManager.class)
+@ResultManager(TextFileResultManager.class)
+@ResultManager(XMLFileResultManager.class)
 //@Timed(false)
 public class TimeTest {
 	@Test
