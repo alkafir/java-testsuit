@@ -25,11 +25,12 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@Repeatable(ResultManagers.class)
 public @interface ResultManager {
 
 	/**
 	 * The result manager to use.
 	 */
-	Class<? extends wisedevil.test.result.AbstractResultManager>[] value();
+	Class<? extends wisedevil.test.result.AbstractResultManager> value();
 }
 
