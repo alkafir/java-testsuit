@@ -16,6 +16,7 @@
  */
 package wisedevil.test.result;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import wisedevil.test.TestCaseInfo;
@@ -50,9 +51,8 @@ public abstract class TextResultManager extends AbstractResultManager {
 		final String nl = System.getProperty("line.separator"); // Newline
 		final char[] sep = new char[minConsoleW]; // Text separator
 		final TestCaseInfo info = getTestCaseInfo();
-		
-		for(int i = 0; i < sep.length; i++)
-			sep[i] = '-'; // Separator character
+
+		Arrays.fill(sep, '-');
 		
 		StringBuilder b = new StringBuilder();
 		
