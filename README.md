@@ -1,7 +1,7 @@
 # Testsuit
 
 ## Introduction
-Testsuit is a test framework for the Java platform, intended for usage with the J7SE and compatible specifications.
+Testsuit is a test framework for the Java platform, intended for usage with the J8SE and compatible specifications.
 It's meant to be easy to implement and quick to learn and expand.
 Its source code has been widely documented with the javadoc specification for maximum understanding.
 
