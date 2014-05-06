@@ -28,6 +28,8 @@ public @interface Name {
 
 	/**
 	 * The test case name.
+	 *
+	 * @return The test case name
 	 */
 	String value();
 }

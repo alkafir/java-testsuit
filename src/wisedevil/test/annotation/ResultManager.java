@@ -30,6 +30,8 @@ public @interface ResultManager {
 
 	/**
 	 * The result manager to use.
+	 *
+	 * @return The result manager to use
 	 */
 	Class<? extends wisedevil.test.result.AbstractResultManager> value();
 }

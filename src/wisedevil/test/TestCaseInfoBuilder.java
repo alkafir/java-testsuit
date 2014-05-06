@@ -36,15 +36,15 @@ public class TestCaseInfoBuilder {
 	/**
 	 * Initializes a new instance fo this class.
 	 *
-	 * <p>The default TestCaseInfo class returned by this builder has the following features:
+	 * <p>The default TestCaseInfo class returned by this builder has the following features:</p>
 	 * <ul>
-	 *  <li><code>class = Object.class</code>
-	 *  <li><code>timed = false</code>
-	 *  <li><code>flows = 1</code>
-	 *  <li><code>name = null</code>
-	 *  <li><code>description = null</code>
-	 *  <li><code>result managers = {wisedevil.test.result.ConsoleResultManager}</code>
-	 * </ul></p>
+	 *  <li><code>class = Object.class</code></li>
+	 *  <li><code>timed = false</code></li>
+	 *  <li><code>flows = 1</code></li>
+	 *  <li><code>name = null</code></li>
+	 *  <li><code>description = null</code></li>
+	 *  <li><code>result managers = {wisedevil.test.result.ConsoleResultManager}</code></li>
+	 * </ul>
 	 */	
 	public TestCaseInfoBuilder() {
 		_cls = Object.class;
@@ -63,6 +63,8 @@ public class TestCaseInfoBuilder {
 	 * Sets whether the tests should be timed.
 	 *
 	 * @param t True if the tests should be timed
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder isTimed(boolean t) { _isTimed = t; return this; }
 	
@@ -70,6 +72,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the number of test flows (threads) to be run at once.
 	 *
 	 * @param f The number of test flows to be run at once
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setFlows(int f) { _flows = f; return this; }
 	
@@ -77,6 +81,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the maximum number of msecs to wait before killing a test flow.
 	 *
 	 * @param l The maximum number of msecs to wait before killing a test flow
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setMaxLingerTime(long l) { _linger = l; return this; }
 	
@@ -84,6 +90,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the name of the test case.
 	 *
 	 * @param n The name of the test case
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setName(String n) { _name = n; return this; }
 	
@@ -91,6 +99,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the description of the test case.
 	 *
 	 * @param d The description of the test case
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setDescription(String d) { _desc = d; return this; }
 
@@ -98,6 +108,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the result managers for the test case.
 	 *
 	 * @param m The result manager collection
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setResultManagers(java.util.Collection<Class<? extends AbstractResultManager>> m) {
 		_mgrs = new java.util.LinkedHashSet<Class<? extends AbstractResultManager>>(m);
@@ -108,6 +120,8 @@ public class TestCaseInfoBuilder {
 	 * Sets the test case class.
 	 *
 	 * @param c The test case class
+	 *
+	 * @return The builder instance
 	 */
 	public TestCaseInfoBuilder setTestCaseClass(Class<?> c) {
 		_cls = c;

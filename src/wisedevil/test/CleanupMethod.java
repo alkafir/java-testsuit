@@ -25,6 +25,9 @@ public class CleanupMethod extends AbstractTestMethod {
 	/**
 	 * Initializes a new instance of this class.
 	 *
+	 * @param inst The test case instance
+	 * @param meth The cleanup method
+	 *
 	 * @throws java.lang.NullPointerException if any of the arguments is null
 	 */
 	public CleanupMethod(Object inst, java.lang.reflect.Method meth) {

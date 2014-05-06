@@ -35,6 +35,9 @@ public abstract class AbstractTestMethod implements Runnable {
 	/**
 	 * Initializes a new instance of this class.
 	 *
+	 * @param inst The test case instance
+	 * @param meth The test method
+	 *
 	 * @throws java.lang.NullPointerException if any of the arguments is null
 	 */
 	protected AbstractTestMethod(Object inst, Method meth) {

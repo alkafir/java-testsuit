@@ -86,7 +86,7 @@ public final class Assert {
 	  *
 	  * @param args The arguments to check for nullity
 	  */
-	 public static<T> void assertNull(Object... args) {
+	 public static void assertNull(Object... args) {
 		for(Object arg: args)
 			if(arg != null)
 				fail();
@@ -98,7 +98,7 @@ public final class Assert {
 	  *
 	  * @param args The arguments to check for nullity
 	  */
-	 public static<T> void assertNotNull(Object... args) {
+	 public static void assertNotNull(Object... args) {
 		for(Object arg: args)
 			if(arg == null)
 				fail();

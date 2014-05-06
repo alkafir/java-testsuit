@@ -25,6 +25,9 @@ public class SetupMethod extends AbstractTestMethod {
 	/**
 	 * Initializes a new instance of this class.
 	 *
+	 * @param inst The test case instance
+	 * @param meth The setup method
+	 *
 	 * @throws java.lang.NullPointerException if any of the arguments is null
 	 */
 	public SetupMethod(Object inst, java.lang.reflect.Method meth) {

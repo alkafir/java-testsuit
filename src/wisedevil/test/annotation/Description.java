@@ -28,6 +28,8 @@ public @interface Description {
 
 	/**
 	 * The test case description.
+	 *
+	 * @return The test case description
 	 */
 	String value();
 }

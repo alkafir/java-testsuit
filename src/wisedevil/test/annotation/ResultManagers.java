@@ -29,6 +29,8 @@ public @interface ResultManagers {
 
 	/**
 	 * The result managers to use.
+	 *
+	 * @return The result managers to use
 	 */
 	wisedevil.test.annotation.ResultManager[] value();
 }

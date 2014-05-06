@@ -26,6 +26,8 @@ import wisedevil.test.util.ErrorCode;
 public final class EntryPoint {
 	/**
 	 * Main method.
+	 *
+	 * @param args The command line arguments
 	 */
 	public static void main(String[] args) {
 		if(args.length != 1) {

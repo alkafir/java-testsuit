@@ -28,6 +28,8 @@ import java.lang.annotation.*;
 public @interface Flows {
 	/**
 	 * The maximum number of threads to execute.
+	 *
+	 * @return The number of flows to be executed
 	 */
 	int value() default 4;
 	
@@ -36,6 +38,8 @@ public @interface Flows {
 	 * a test sequence to stop (0 = no timeout).
 	 *
 	 * <b>NOTE</b>: This value MUST be positive.
+	 *
+	 * @return The maximum flow lingering time
 	 */
 	long time() default 10_000;
 }

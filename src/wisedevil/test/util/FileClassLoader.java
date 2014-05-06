@@ -52,6 +52,7 @@ public class FileClassLoader extends ClassLoader {
 	 *
 	 * @throws java.lang.ClassFormatError If the file is not a valid Java class file
 	 * @throws java.io.IOException If there's an input error loading the file
+	 * @throws wisedevil.test.TestProcessAbortedException If a security exception is raised
 	 */
 	public Class<?> loadClassFromFile(File cPath) throws ClassFormatError, IOException, TestProcessAbortedException {
 		try {

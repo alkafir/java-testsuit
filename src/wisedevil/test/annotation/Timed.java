@@ -28,6 +28,8 @@ public @interface Timed {
 
 	/**
 	 * True if the test case/test must be timed.
+	 *
+	 * @return <code>true</code> if the test should be timed, <code>false</code> if not
 	 */
 	boolean value() default true;
 }

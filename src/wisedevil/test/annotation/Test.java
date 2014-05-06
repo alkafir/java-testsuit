@@ -28,6 +28,8 @@ public @interface Test {
 
 	/**
 	 * Whether to run the test or not (<code>false</code> = ignore the test).
+	 *
+	 * @return <code>true</code> if the test should be run, <code>false</code> if not
 	 */
 	boolean value() default true;
 }
