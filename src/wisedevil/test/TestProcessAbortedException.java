@@ -54,6 +54,8 @@ public class TestProcessAbortedException extends Exception {
 	}
 	
 	/**
+	 * @param message The detail message
+	 *
 	 * @see java.lang.Exception
 	 */
 	public TestProcessAbortedException(String message) {
@@ -62,6 +64,9 @@ public class TestProcessAbortedException extends Exception {
 	}
 	
 	/**
+	 * @param message The detail message
+	 * @param cause The cause
+	 *
 	 * @see java.lang.Exception
 	 */
 	public TestProcessAbortedException(String message, Throwable cause) {
@@ -70,6 +75,11 @@ public class TestProcessAbortedException extends Exception {
 	}
 	
 	/**
+	 * @param message The detail message
+	 * @param cause The cause
+	 * @param enableSuppression Whether or not suppression is enabled
+	 * @param writableStackTrace Whether or not the stack trace should be writable
+	 *
 	 * @see java.lang.Exception
 	 */
 	public TestProcessAbortedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
@@ -78,6 +88,8 @@ public class TestProcessAbortedException extends Exception {
 	}
 	
 	/**
+	 * @param cause The cause
+	 *
 	 * @see java.lang.Exception
 	 */
 	public TestProcessAbortedException(Throwable cause) {

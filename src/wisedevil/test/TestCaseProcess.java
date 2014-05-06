@@ -42,6 +42,8 @@ public class TestCaseProcess {
 	 * Initializes a new instance of this class.
 	 *
 	 * @param fClass The test class file
+	 *
+	 * @throws TestProcessAbortedException if an error occurs during class initialization
 	 */
 	public TestCaseProcess(File fClass) throws TestProcessAbortedException {
 		Class<?> cls = null;
@@ -65,6 +67,8 @@ public class TestCaseProcess {
 	
 	/**
 	 * Runs the test case and export its results.
+	 *
+	 * @throws TestProcessAbortedException if the test case fails unexpectedly
 	 */
 	public void run() throws TestProcessAbortedException {
 		try {
@@ -115,6 +119,8 @@ public class TestCaseProcess {
 	 * @param rm The result manager to use for exporting results
 	 * @param info The test case info
 	 * @param results The test results
+	 *
+	 * @throws TestProcessAbortedException if the result export fails unexpectedly
 	 */
 	private void exportResults(AbstractResultManager rm, TestCaseInfo info, Iterable<TestResult> results) throws TestProcessAbortedException {
 		try {

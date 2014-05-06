@@ -82,6 +82,8 @@ public abstract class AbstractResultManager implements ResultExporter {
 	
 	/**
 	 * Sets the test case information object.
+	 *
+	 * @param info The test case information object
 	 */
 	public void setTestCaseInfo(TestCaseInfo info) { _info = info; }
 }

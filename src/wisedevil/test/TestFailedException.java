@@ -30,6 +30,8 @@ public class TestFailedException extends RuntimeException {
 	}
 	
 	/**
+	 * @param message The detail message
+	 *
 	 * @see java.lang.RuntimeException
 	 */
 	public TestFailedException(String message) {
@@ -37,6 +39,9 @@ public class TestFailedException extends RuntimeException {
 	}
 	
 	/**
+	 * @param message The detail message
+	 * @param cause The cause
+	 *
 	 * @see java.lang.RuntimeException
 	 */
 	public TestFailedException(String message, Throwable cause) {
@@ -44,6 +49,11 @@ public class TestFailedException extends RuntimeException {
 	}
 	
 	/**
+	 * @param message The detail message
+	 * @param cause The cause
+	 * @param enableSuppression Whether or not suppression is enabled
+	 * @param writableStackTrace Whether or not the stack trace should be writable
+	 *
 	 * @see java.lang.RuntimeException
 	 */
 	public TestFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
@@ -51,6 +61,8 @@ public class TestFailedException extends RuntimeException {
 	}
 	
 	/**
+	 * @param cause The cause
+	 *
 	 * @see java.lang.RuntimeException
 	 */
 	public TestFailedException(Throwable cause) {
