@@ -29,12 +29,6 @@
 	<!-- Java classes -->
 	<property name="class.entryPoint" value="wisedevil.test.EntryPoint" />
 	
-	<!-- Tasks -->
-	<taskdef name="runtests"
-		classname="wisedevil.ant.taskdefs.RunTests"
-		classpath="${dir.build}"
-		onerror="ignore"
-	/>
 	
 	<target name="release" description="Enables release mode">
 		<property name="build.release" value="true" />
@@ -150,6 +144,11 @@
 	</target>
 	
 	<target name="test" depends="build-test, build-ant-tasks" description="Runs the tests">
+		<taskdef name="runtests"
+			classname="wisedevil.ant.taskdefs.RunTests"
+			classpath="${dir.build}"
+			onerror="ignore"
+		/>
 		<runtests classpath="${dir.build}">
 			<fileset dir="${dir.test}">
 				<include name="*.class" />
