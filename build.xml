@@ -2,8 +2,9 @@
 <project name="testsuit" default="build">
 	<!-- Version -->
 	<property name="version.number.major" value="2" />
-	<property name="version.number.minor" value="0" />
-	<property name="version.number" value="${version.number.major}.${version.number.minor}" />
+	<property name="version.number.minor" value="1" />
+	<property name="version.number.patch" value="0" />
+	<property name="version.number" value="${version.number.major}.${version.number.minor}.${version.number.patch}" />
 	<property name="version.phase" value="alpha" />
 	<property name="version" value="${version.number}-${version.phase}" />
 
