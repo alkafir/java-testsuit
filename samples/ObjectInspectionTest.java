@@ -12,12 +12,12 @@ public class ObjectInspectionTest {
 	
 	@Test
 	public void property_get_and_set() {
-		PropertyInspector oi = new PropertyInspector(new TestClass());
+		PropertyInspector oi = new PropertyInspector(new TestClass(), "myProperty");
 		
-		assert (int)oi.get("myProperty") == 5;
+		assert (int)oi.get() == 5;
 		
-		oi.set("myProperty", 6);
+		oi.set(6);
 		
-		assert (int)oi.get("myProperty") == 6;
+		assert (int)oi.get() == 6;
 	}
 }

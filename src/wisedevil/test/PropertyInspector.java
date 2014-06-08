@@ -19,65 +19,85 @@ package wisedevil.test;
 import java.lang.reflect.Field;
 
 /**
- * This class provides support for fast object inspection.
+ * This class provides support for fast property inspection.
  */
 public class PropertyInspector {
 	/**
-	 * The object's class.
-	 */
-	private final Class<?> cls;
-	
-	/**
-	 * The object to inspect.
+	 * The object containing the property to inspect.
 	 */
 	private final Object obj;
+
+	/**
+	 * The field to inspect.
+	 */
+	private final Field fld;
 	
 	/**
 	 * Initializes a new instance of this class.
 	 *
-	 * @param obj The object to inspect
+	 * @param obj The object containing the property
+	 * @param prop The property to inspect
+	 *
+	 * @throws IllegalArgumentException if the name of the property is invalid
+	 * @throws NullPointerException if any of the arguments is <code>null</code>
 	 */
-	public PropertyInspector(Object obj) {
-		cls = obj.getClass();
+	public PropertyInspector(Object obj, String prop) throws IllegalArgumentException, NullPointerException {
+		if(obj == null || prop == null)
+			throw new NullPointerException();
+
 		this.obj = obj;
+		fld = initializeField(obj, prop);
 	}
 	
 	/**
-	 * Returns the value of a property inside the inspected object.
+	 * Returns the field of a property inside the inspected object.
 	 *
-	 * @param name The name of the property
+	 * <blockquote>NOTE: The returned field is always an accessible field</blockquote>
 	 *
-	 * @return The value of the property as an <code>Object</code>
+	 * @param obj The object containing the property
+	 * @param prop The property to inspect
 	 *
 	 * @throws IllegalArgumentException if the name of the object does not exist
 	 */
-	public Object get(String name) throws IllegalArgumentException {
+	public Field initializeField(Object obj, String prop) throws IllegalArgumentException {
 		try {
-			Field f = cls.getDeclaredField(name);
+			Class<?> cls = obj.getClass();
+			Field f = cls.getDeclaredField(prop);
 			f.setAccessible(true);
 			
-			return f.get(obj);
-		} catch(NoSuchFieldException | IllegalAccessException e) {
+			return f;
+		} catch(Exception e) {
 			throw new IllegalArgumentException(e);
 		}
 	}
 	
 	/**
-	 * Sets the value of a property inside the inspected object.
+	 * Sets the value of the inspected property.
 	 *
-	 * @param name The name of the property
 	 * @param value The new value to set
 	 *
-	 * @throws IllegalArgumentException if the name of the object does not exist
+	 * @throws IllegalArgumentException if the provided value is invalid
 	 */
-	public void set(String name, Object value) throws IllegalArgumentException {
+	public void set(Object value) throws IllegalArgumentException {
 		try {
-			Field f = cls.getDeclaredField(name);
-			f.setAccessible(true);
-			
-			f.set(obj, value);
-		} catch(NoSuchFieldException | IllegalAccessException e) {
+			fld.set(obj, value);
+		} catch(Exception e) {
 			throw new IllegalArgumentException(e);
+		}
+	}
+
+	/**
+	 * Gets the value of the inspected property.
+	 *
+	 * @return The value of the inspected property as an <code>Object</code>
+	 */
+	public Object get() {
+		try {
+			return fld.get(obj);
+		} catch(Exception e) { // Should never happen
+			e.printStackTrace();
+			System.exit(-1);
+			return null;
 		}
 	}
 }
