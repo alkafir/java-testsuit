@@ -22,8 +22,10 @@ import java.util.Arrays;
 
 /**
  * This class provides support for fast method inspection.
+ *
+ * @param T The type of the result of the method
  */
-public class MethodInspector {
+public class MethodInspector<T> {
 	/**
 	 * The object containing the method to inspect.
 	 */
@@ -65,14 +67,15 @@ public class MethodInspector {
 	 *
 	 * @param parms The method parameters
 	 *
-	 * @return The method result as an object
+	 * @return The method result
 	 *
 	 * @throws IllegalArgumentException If the number of arguments is wrong, if they are not in the right order or if any of them isn't the right type
 	 * @throws InvocationTargetException If the inspected method throws an exception
 	 */
-	public Object invoke(Object... parms) throws InvocationTargetException {
+	@SuppressWarnings("unchecked")
+	public T invoke(Object... parms) throws InvocationTargetException {
 		try {
-			return meth.invoke(obj, parms);
+			return (T)meth.invoke(obj, parms);
 		} catch(IllegalAccessException e) {
 			e.printStackTrace();
 			System.exit(-1);

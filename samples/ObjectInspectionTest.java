@@ -20,25 +20,25 @@ public class ObjectInspectionTest {
 	
 	@Test
 	public void property_get_and_set() {
-		PropertyInspector oi = new PropertyInspector(new TestClass(), "myProperty");
+		PropertyInspector<Integer> oi = new PropertyInspector<Integer>(new TestClass(), "myProperty");
 		
-		assert (int)oi.get() == 5;
+		assert oi.get() == 5;
 		
 		oi.set(6);
 		
-		assert (int)oi.get() == 6;
+		assert oi.get() == 6;
 	}
 
 	@Test
 	public void method_invoke() {
 		TestClass tc = new TestClass();
-		MethodInspector mi = new MethodInspector(tc, "myVoidMethod");
-		MethodInspector mi_sum = new MethodInspector(tc, "mySumMethod", int.class, int.class);
+		MethodInspector<Void> mi = new MethodInspector<Void>(tc, "myVoidMethod");
+		MethodInspector<Integer> mi_sum = new MethodInspector<Integer>(tc, "mySumMethod", int.class, int.class);
 
 		try {
 			mi.invoke();
 
-			assert (int)mi_sum.invoke(2, 3) == 5;
+			assert mi_sum.invoke(2, 3) == 5;
 		} catch(Exception e) {
 			e.printStackTrace();
 			fail();

@@ -20,8 +20,10 @@ import java.lang.reflect.Field;
 
 /**
  * This class provides support for fast property inspection.
+ *
+ * @param T The type of the inspected property
  */
-public class PropertyInspector {
+public class PropertyInspector<T> {
 	/**
 	 * The object containing the property to inspect.
 	 */
@@ -41,7 +43,7 @@ public class PropertyInspector {
 	 * @throws IllegalArgumentException if the name of the property is invalid
 	 * @throws NullPointerException if any of the arguments is <code>null</code>
 	 */
-	public PropertyInspector(Object obj, String prop) throws IllegalArgumentException, NullPointerException {
+	public PropertyInspector(Object obj, String prop) {
 		if(obj == null || prop == null)
 			throw new NullPointerException();
 
@@ -57,9 +59,11 @@ public class PropertyInspector {
 	 * @param obj The object containing the property
 	 * @param prop The property to inspect
 	 *
+	 * @return The field representing the inspected property
+	 *
 	 * @throws IllegalArgumentException if the name of the object does not exist
 	 */
-	public Field initializeField(Object obj, String prop) throws IllegalArgumentException {
+	private Field initializeField(Object obj, String prop) {
 		try {
 			Class<?> cls = obj.getClass();
 			Field f = cls.getDeclaredField(prop);
@@ -78,7 +82,7 @@ public class PropertyInspector {
 	 *
 	 * @throws IllegalArgumentException if the provided value is invalid
 	 */
-	public void set(Object value) throws IllegalArgumentException {
+	public void set(T value) {
 		try {
 			fld.set(obj, value);
 		} catch(Exception e) {
@@ -91,9 +95,10 @@ public class PropertyInspector {
 	 *
 	 * @return The value of the inspected property as an <code>Object</code>
 	 */
-	public Object get() {
+	@SuppressWarnings("unchecked")
+	public T get() {
 		try {
-			return fld.get(obj);
+			return (T)fld.get(obj);
 		} catch(Exception e) { // Should never happen
 			e.printStackTrace();
 			System.exit(-1);
