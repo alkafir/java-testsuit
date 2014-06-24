@@ -57,7 +57,7 @@ public final class Assert {
 	 }
 	 
 	 /**
-	  * Fail the test if any exception is thrown.
+	  * Fail the test if any unchecked exception is thrown.
 	  *
 	  * @param code The code to run
 	  */
