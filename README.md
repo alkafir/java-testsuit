@@ -80,4 +80,4 @@ Feel free to report bugs and submit suggestions via the issue tracker at the pro
 
 ## Links
 - [Project page @github.com](https://github.com/wisedevil/testsuit "Project")
-
+- [API @github.io](http://wisedevil.github.io/java-testsuit/ "API")
