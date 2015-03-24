@@ -79,5 +79,5 @@ Please referer to the javadoc output for further information.
 Feel free to report bugs and submit suggestions via the issue tracker at the project's page. Any help is appreciated.
 
 ## Links
-- [Project page @github.com](https://github.com/wisedevil/testsuit "Project")
-- [API @github.io](http://wisedevil.github.io/java-testsuit/ "API")
+- [Project page @github.com](https://github.com/alkafir/testsuit "Project")
+- [API @github.io](http://alkafir.github.io/java-testsuit/ "API")
